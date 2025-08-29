@@ -66,14 +66,14 @@
 {* 메인 페이지 *}
 <div class="main-page">
     <!-- 메인 배너 -->
-    <section class="main-banner">
+    <section class="main-banner" data-ez-role="editable" data-ez-name="main-banner">
         <div class="banner-slider">
             {foreach from=$main_banners item=banner}
-                <div class="banner-item">
+                <div class="banner-item" data-ez-role="editable" data-ez-name="banner-item">
                     <img src="{$banner.image}" alt="{$banner.title}">
                     <div class="banner-content">
-                        <h2>{$banner.title}</h2>
-                        <p>{$banner.description}</p>
+                        <h2 data-ez-role="editable" data-ez-name="banner-title">{$banner.title}</h2>
+                        <p data-ez-role="editable" data-ez-name="banner-description">{$banner.description}</p>
                         <a href="{$banner.link}" class="btnBanner">자세히 보기</a>
                     </div>
                 </div>
@@ -82,15 +82,15 @@
     </section>
     
     <!-- 카테고리 섹션 -->
-    <section class="category-section">
+    <section class="category-section" data-ez-role="editable" data-ez-name="category-section">
         <div class="container">
-            <h2 class="section-title">카테고리</h2>
+            <h2 class="section-title" data-ez-role="editable" data-ez-name="category-title">카테고리</h2>
             <div class="category-grid">
                 {foreach from=$main_categories item=category}
-                    <a href="{$category.link}" class="category-card">
+                    <a href="{$category.link}" class="category-card" data-ez-role="editable" data-ez-name="category-{$category.id}">
                         <div class="category-icon">{$category.icon}</div>
-                        <h3>{$category.name}</h3>
-                        <p>{$category.description}</p>
+                        <h3 data-ez-role="editable" data-ez-name="category-name-{$category.id}">{$category.name}</h3>
+                        <p data-ez-role="editable" data-ez-name="category-desc-{$category.id}">{$category.description}</p>
                     </a>
                 {/foreach}
             </div>
@@ -98,12 +98,12 @@
     </section>
     
     <!-- 인기 상품 -->
-    <section class="popular-products">
+    <section class="popular-products" data-ez-role="editable" data-ez-name="popular-products">
         <div class="container">
-            <h2 class="section-title">인기 상품</h2>
+            <h2 class="section-title" data-ez-role="editable" data-ez-name="popular-title">인기 상품</h2>
             <div class="product-slider">
                 {foreach from=$popular_products item=product}
-                    <div class="product-card">
+                    <div class="product-card" data-ez-role="editable" data-ez-name="product-{$product.id}">
                         <div class="product-image">
                             <img src="{$product.image}" alt="{$product.name}">
                             <div class="product-actions">
@@ -112,7 +112,7 @@
                             </div>
                         </div>
                         <div class="product-info">
-                            <h3>{$product.name}</h3>
+                            <h3 data-ez-role="editable" data-ez-name="product-name-{$product.id}">{$product.name}</h3>
                             <div class="product-price">
                                 {if $product.discount_price}
                                     <span class="current-price">{$product.discount_price|number_format}원</span>
@@ -131,16 +131,16 @@
     
     <!-- 이벤트 섹션 -->
     {if $events}
-        <section class="events-section">
+        <section class="events-section" data-ez-role="editable" data-ez-name="events-section">
             <div class="container">
-                <h2 class="section-title">진행중인 이벤트</h2>
+                <h2 class="section-title" data-ez-role="editable" data-ez-name="events-title">진행중인 이벤트</h2>
                 <div class="event-grid">
                     {foreach from=$events item=event}
-                        <div class="event-card">
+                        <div class="event-card" data-ez-role="editable" data-ez-name="event-{$event.id}">
                             <img src="{$event.image}" alt="{$event.title}">
                             <div class="event-content">
-                                <h3>{$event.title}</h3>
-                                <p>{$event.description}</p>
+                                <h3 data-ez-role="editable" data-ez-name="event-title-{$event.id}">{$event.title}</h3>
+                                <p data-ez-role="editable" data-ez-name="event-desc-{$event.id}">{$event.description}</p>
                                 <span class="event-period">{$event.start_date} ~ {$event.end_date}</span>
                                 <a href="{$event.link}" class="btnEvent">자세히 보기</a>
                             </div>
@@ -152,11 +152,11 @@
     {/if}
     
     <!-- 브랜드 스토리 -->
-    <section class="brand-story">
+    <section class="brand-story" data-ez-role="editable" data-ez-name="brand-story">
         <div class="container">
             <div class="brand-content">
-                <h2>브랜드 스토리</h2>
-                <p>{$brand_story}</p>
+                <h2 data-ez-role="editable" data-ez-name="brand-title">브랜드 스토리</h2>
+                <p data-ez-role="editable" data-ez-name="brand-content-text">{$brand_story}</p>
                 <a href="{$about_url}" class="btnAbout">회사 소개</a>
             </div>
             <div class="brand-image">
@@ -166,10 +166,10 @@
     </section>
     
     <!-- 뉴스레터 구독 -->
-    <section class="newsletter">
+    <section class="newsletter" data-ez-role="editable" data-ez-name="newsletter">
         <div class="container">
-            <h2>뉴스레터 구독</h2>
-            <p>새로운 상품과 이벤트 소식을 가장 먼저 받아보세요!</p>
+            <h2 data-ez-role="editable" data-ez-name="newsletter-title">뉴스레터 구독</h2>
+            <p data-ez-role="editable" data-ez-name="newsletter-desc">새로운 상품과 이벤트 소식을 가장 먼저 받아보세요!</p>
             <form name="newsletter" method="post" action="{$newsletter_url}">
                 <input type="email" name="email" placeholder="이메일 주소를 입력하세요" required>
                 <button type="submit">구독하기</button>

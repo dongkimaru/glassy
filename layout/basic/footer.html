@@ -1,13 +1,13 @@
-<footer id="footer">
+<footer id="footer" data-ez-role="editable" data-ez-name="footer">
     <div class="footer-content">
         <div class="container">
             <!-- 푸터 로고 -->
-            <div class="footer-logo">
+            <div class="footer-logo" data-ez-role="editable" data-ez-name="footer-logo">
                 <img src="{$webpath}/web/upload/template1/img/logo-footer.png" alt="{$mall_name}">
             </div>
             
             <!-- 푸터 링크 -->
-            <nav class="footer-links">
+            <nav class="footer-links" data-ez-role="editable" data-ez-name="footer-links">
                 <ul>
                     <li><a href="{$terms_url}">이용약관</a></li>
                     <li><a href="{$privacy_url}">개인정보 처리방침</a></li>
@@ -17,16 +17,16 @@
             </nav>
             
             <!-- 회사 정보 -->
-            <div class="company-info">
-                <p>대표 : {$company_ceo} ｜ 사업자등록번호 : {$company_business_number}</p>
-                <p>주소 : {$company_address}</p>
-                <p>고객센터 : {$company_phone}</p>
-                <p>이메일 : {$company_email}</p>
-                <p>Copyright © {$company_name}. All Rights Reserved.</p>
+            <div class="company-info" data-ez-role="editable" data-ez-name="company-info">
+                <p data-ez-role="editable" data-ez-name="company-ceo">대표 : {$company_ceo} ｜ 사업자등록번호 : {$company_business_number}</p>
+                <p data-ez-role="editable" data-ez-name="company-address">주소 : {$company_address}</p>
+                <p data-ez-role="editable" data-ez-name="company-phone">고객센터 : {$company_phone}</p>
+                <p data-ez-role="editable" data-ez-name="company-email">이메일 : {$company_email}</p>
+                <p data-ez-role="editable" data-ez-name="company-copyright">Copyright © {$company_name}. All Rights Reserved.</p>
             </div>
             
             <!-- 소셜 미디어 -->
-            <div class="social-links">
+            <div class="social-links" data-ez-role="editable" data-ez-name="social-links">
                 {if $social_facebook}
                     <a href="{$social_facebook}" target="_blank" class="social-facebook">Facebook</a>
                 {/if}

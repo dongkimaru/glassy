@@ -1,51 +1,56 @@
-<header id="header">
+<header id="header" data-ez-role="editable" data-ez-name="header">
     <!-- 상단 유틸리티 메뉴 -->
-    <div class="header-top">
+    <div class="header-top" data-ez-role="editable" data-ez-name="header-utility">
         <div class="container">
             <div class="utility-menu">
-                {if $is_login}
-                    <span class="welcome">안녕하세요, <strong>{$member_name}</strong>님</span>
-                    <a href="{$logout_url}" class="btnLogout">로그아웃</a>
-                    <a href="{$mypage_url}" class="btnMypage">마이페이지</a>
-                {else}
-                    <a href="#none" class="btnLogin {$display_login|display}" onclick="{$login_func}">로그인</a>
-                    <a href="{$join_url}" class="btnJoin">회원가입</a>
-                {/if}
+                <!-- 로그인/회원가입 영역 -->
+                <div data-ez-role="editable" data-ez-name="login-area">
+                    {if $is_login}
+                        <span class="welcome">안녕하세요, <strong>{$member_name}</strong>님</span>
+                        <a href="{$logout_url}" class="btnLogout">로그아웃</a>
+                        <a href="{$mypage_url}" class="btnMypage">마이페이지</a>
+                    {else}
+                        <a href="#none" class="btnLogin {$display_login|display}" onclick="{$login_func}">로그인</a>
+                        <a href="{$join_url}" class="btnJoin">회원가입</a>
+                    {/if}
+                </div>
                 
                 <!-- 카카오 로그인 -->
-                <a href="#none" class="btnKakao {$display_kakao|display}" onclick="{$kakao_func_login}">카카오 로그인</a>
+                <div data-ez-role="editable" data-ez-name="kakao-login">
+                    <a href="#none" class="btnKakao {$display_kakao|display}" onclick="{$kakao_func_login}">카카오 로그인</a>
+                </div>
                 
-                <!-- 장바구니 -->
-                <a href="{$cart_url}" class="btnCart">
-                    장바구니
-                    {if $cart_count > 0}
-                        <span class="cart-count">{$cart_count}</span>
-                    {/if}
-                </a>
-                
-                <!-- 위시리스트 -->
-                <a href="{$wishlist_url}" class="btnWishlist">
-                    위시리스트
-                    {if $wishlist_count > 0}
-                        <span class="wishlist-count">{$wishlist_count}</span>
-                    {/if}
-                </a>
+                <!-- 장바구니/위시리스트 -->
+                <div data-ez-role="editable" data-ez-name="cart-wishlist">
+                    <a href="{$cart_url}" class="btnCart">
+                        장바구니
+                        {if $cart_count > 0}
+                            <span class="cart-count">{$cart_count}</span>
+                        {/if}
+                    </a>
+                    <a href="{$wishlist_url}" class="btnWishlist">
+                        위시리스트
+                        {if $wishlist_count > 0}
+                            <span class="wishlist-count">{$wishlist_count}</span>
+                        {/if}
+                    </a>
+                </div>
             </div>
         </div>
     </div>
     
     <!-- 메인 헤더 -->
-    <div class="header-main">
+    <div class="header-main" data-ez-role="editable" data-ez-name="header-main">
         <div class="container">
             <!-- 로고 -->
-            <h1 class="logo">
+            <div class="logo" data-ez-role="editable" data-ez-name="logo">
                 <a href="{$mall_url}">
                     <img src="{$webpath}/web/upload/template1/img/logo.png" alt="{$mall_name}">
                 </a>
-            </h1>
+            </div>
             
             <!-- 검색 -->
-            <div class="search-box">
+            <div class="search-box" data-ez-role="editable" data-ez-name="search-box">
                 <form name="search" method="get" action="{$search_url}">
                     <input type="text" name="keyword" value="{$keyword}" placeholder="상품을 검색해보세요">
                     <button type="submit">검색</button>
@@ -62,12 +67,12 @@
     </div>
     
     <!-- 네비게이션 -->
-    <nav id="gnb">
+    <nav id="gnb" data-ez-role="editable" data-ez-name="navigation">
         <div class="container">
             <ul class="depth1">
-                <li><a href="{$mall_url}">홈</a></li>
-                <li><a href="{$product_list_url}">전체상품</a></li>
-                <li class="has-submenu">
+                <li data-ez-role="editable" data-ez-name="nav-home"><a href="{$mall_url}">홈</a></li>
+                <li data-ez-role="editable" data-ez-name="nav-products"><a href="{$product_list_url}">전체상품</a></li>
+                <li class="has-submenu" data-ez-role="editable" data-ez-name="nav-category">
                     <a href="{$category_url}">카테고리</a>
                     <ul class="depth2">
                         {foreach from=$category_list item=cat}
@@ -75,8 +80,8 @@
                         {/foreach}
                     </ul>
                 </li>
-                <li><a href="{$event_url}">이벤트</a></li>
-                <li><a href="{$board_url}">게시판</a></li>
+                <li data-ez-role="editable" data-ez-name="nav-events"><a href="{$event_url}">이벤트</a></li>
+                <li data-ez-role="editable" data-ez-name="nav-board"><a href="{$board_url}">게시판</a></li>
             </ul>
         </div>
     </nav>
