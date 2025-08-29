@@ -1,0 +1,83 @@
+<header id="header">
+    <!-- 상단 유틸리티 메뉴 -->
+    <div class="header-top">
+        <div class="container">
+            <div class="utility-menu">
+                {if $is_login}
+                    <span class="welcome">안녕하세요, <strong>{$member_name}</strong>님</span>
+                    <a href="{$logout_url}" class="btnLogout">로그아웃</a>
+                    <a href="{$mypage_url}" class="btnMypage">마이페이지</a>
+                {else}
+                    <a href="#none" class="btnLogin {$display_login|display}" onclick="{$login_func}">로그인</a>
+                    <a href="{$join_url}" class="btnJoin">회원가입</a>
+                {/if}
+                
+                <!-- 카카오 로그인 -->
+                <a href="#none" class="btnKakao {$display_kakao|display}" onclick="{$kakao_func_login}">카카오 로그인</a>
+                
+                <!-- 장바구니 -->
+                <a href="{$cart_url}" class="btnCart">
+                    장바구니
+                    {if $cart_count > 0}
+                        <span class="cart-count">{$cart_count}</span>
+                    {/if}
+                </a>
+                
+                <!-- 위시리스트 -->
+                <a href="{$wishlist_url}" class="btnWishlist">
+                    위시리스트
+                    {if $wishlist_count > 0}
+                        <span class="wishlist-count">{$wishlist_count}</span>
+                    {/if}
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 메인 헤더 -->
+    <div class="header-main">
+        <div class="container">
+            <!-- 로고 -->
+            <h1 class="logo">
+                <a href="{$mall_url}">
+                    <img src="{$webpath}/web/upload/template1/img/logo.png" alt="{$mall_name}">
+                </a>
+            </h1>
+            
+            <!-- 검색 -->
+            <div class="search-box">
+                <form name="search" method="get" action="{$search_url}">
+                    <input type="text" name="keyword" value="{$keyword}" placeholder="상품을 검색해보세요">
+                    <button type="submit">검색</button>
+                </form>
+            </div>
+            
+            <!-- 모바일 메뉴 버튼 -->
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- 네비게이션 -->
+    <nav id="gnb">
+        <div class="container">
+            <ul class="depth1">
+                <li><a href="{$mall_url}">홈</a></li>
+                <li><a href="{$product_list_url}">전체상품</a></li>
+                <li class="has-submenu">
+                    <a href="{$category_url}">카테고리</a>
+                    <ul class="depth2">
+                        {foreach from=$category_list item=cat}
+                            <li><a href="{$cat.link}">{$cat.name}</a></li>
+                        {/foreach}
+                    </ul>
+                </li>
+                <li><a href="{$event_url}">이벤트</a></li>
+                <li><a href="{$board_url}">게시판</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>

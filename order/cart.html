@@ -1,0 +1,111 @@
+{* 장바구니 페이지 *}
+<div class="cart-page">
+    <h1 class="page-title">장바구니</h1>
+    
+    {if $cart_list}
+        <div class="cart-container">
+            <!-- 장바구니 상품 목록 -->
+            <section class="cart-items">
+                <h2>상품 목록</h2>
+                
+                {foreach from=$cart_list item=item}
+                    <div class="cart-item" data-product-id="{$item.product_id}">
+                        <div class="item-image">
+                            <img src="{$item.image}" alt="{$item.name}">
+                        </div>
+                        
+                        <div class="item-details">
+                            <h3 class="item-name">{$item.name}</h3>
+                            <p class="item-price">{$item.price|number_format}원</p>
+                        </div>
+                        
+                        <div class="item-quantity">
+                            <button class="quantity-btn minus" onclick="{$item.quantity_minus_func}">-</button>
+                            <span class="quantity">{$item.quantity}</span>
+                            <button class="quantity-btn plus" onclick="{$item.quantity_plus_func}">+</button>
+                        </div>
+                        
+                        <div class="item-total">
+                            <span>{$item.total_price|number_format}원</span>
+                        </div>
+                        
+                        <button class="btnRemove" onclick="{$item.remove_func}">삭제</button>
+                    </div>
+                {/foreach}
+            </section>
+            
+            <!-- 주문 요약 -->
+            <aside class="cart-summary">
+                <h2>주문 요약</h2>
+                
+                <div class="summary-item">
+                    <span>상품 금액:</span>
+                    <span>{$subtotal|number_format}원</span>
+                </div>
+                
+                <div class="summary-item">
+                    <span>배송비:</span>
+                    <span>{if $shipping_cost == 0}무료{else}{$shipping_cost|number_format}원{/if}</span>
+                </div>
+                
+                {if $discount_amount > 0}
+                    <div class="summary-item discount">
+                        <span>할인 금액:</span>
+                        <span>-{$discount_amount|number_format}원</span>
+                    </div>
+                {/if}
+                
+                <div class="summary-item total">
+                    <span>총 결제 금액:</span>
+                    <span>{$total_amount|number_format}원</span>
+                </div>
+                
+                <div class="cart-actions">
+                    <a href="{$checkout_url}" class="btnCheckout">주문하기</a>
+                    <a href="{$continue_shopping_url}" class="btnContinue">쇼핑 계속하기</a>
+                </div>
+                
+                <!-- 쿠폰 적용 -->
+                <div class="coupon-section">
+                    <h3>쿠폰 적용</h3>
+                    <form name="coupon" method="post" action="{$coupon_url}">
+                        <input type="text" name="coupon_code" placeholder="쿠폰 코드를 입력하세요">
+                        <button type="submit">적용</button>
+                    </form>
+                    
+                    {if $applied_coupon}
+                        <div class="applied-coupon">
+                            <span>{$applied_coupon.name}</span>
+                            <button onclick="{$remove_coupon_func}">삭제</button>
+                        </div>
+                    {/if}
+                </div>
+            </aside>
+        </div>
+        
+        <!-- 추천 상품 -->
+        {if $recommended_products}
+            <section class="recommended-products">
+                <h2>추천 상품</h2>
+                <div class="product-slider">
+                    {foreach from=$recommended_products item=product}
+                        <div class="product-card">
+                            <img src="{$product.image}" alt="{$product.name}">
+                            <h3>{$product.name}</h3>
+                            <p class="price">{$product.price|number_format}원</p>
+                            <a href="#none" class="btnAddCart" onclick="{$product.cart_func_add}">장바구니 담기</a>
+                        </div>
+                    {/foreach}
+                </div>
+            </section>
+        {/if}
+    {else}
+        <!-- 빈 장바구니 -->
+        <div class="empty-cart">
+            <div class="empty-cart-icon">🛒</div>
+            <h3>장바구니가 비어있습니다</h3>
+            <p>원하는 상품을 장바구니에 담아보세요!</p>
+            <a href="{$product_list_url}" class="btnPrimary">쇼핑 계속하기</a>
+        </div>
+    {/if}
+</div>

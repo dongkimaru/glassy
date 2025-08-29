@@ -1,0 +1,45 @@
+<footer id="footer">
+    <div class="footer-content">
+        <div class="container">
+            <!-- 푸터 로고 -->
+            <div class="footer-logo">
+                <img src="{$webpath}/web/upload/template1/img/logo-footer.png" alt="{$mall_name}">
+            </div>
+            
+            <!-- 푸터 링크 -->
+            <nav class="footer-links">
+                <ul>
+                    <li><a href="{$terms_url}">이용약관</a></li>
+                    <li><a href="{$privacy_url}">개인정보 처리방침</a></li>
+                    <li><a href="{$marketing_url}">마케팅 활용 동의</a></li>
+                    <li><a href="{$company_url}">회사소개</a></li>
+                </ul>
+            </nav>
+            
+            <!-- 회사 정보 -->
+            <div class="company-info">
+                <p>대표 : {$company_ceo} ｜ 사업자등록번호 : {$company_business_number}</p>
+                <p>주소 : {$company_address}</p>
+                <p>고객센터 : {$company_phone}</p>
+                <p>이메일 : {$company_email}</p>
+                <p>Copyright © {$company_name}. All Rights Reserved.</p>
+            </div>
+            
+            <!-- 소셜 미디어 -->
+            <div class="social-links">
+                {if $social_facebook}
+                    <a href="{$social_facebook}" target="_blank" class="social-facebook">Facebook</a>
+                {/if}
+                {if $social_instagram}
+                    <a href="{$social_instagram}" target="_blank" class="social-instagram">Instagram</a>
+                {/if}
+                {if $social_youtube}
+                    <a href="{$social_youtube}" target="_blank" class="social-youtube">YouTube</a>
+                {/if}
+                {if $social_blog}
+                    <a href="{$social_blog}" target="_blank" class="social-blog">Blog</a>
+                {/if}
+            </div>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,175 @@
+{* 상품 상세 페이지 *}
+<div class="product-detail-page">
+    <!-- 브레드크럼 -->
+    <nav class="breadcrumb">
+        <a href="{$mall_url}">홈</a> > 
+        <a href="{$category_url}">{$category_name}</a> > 
+        <span>{$product.name}</span>
+    </nav>
+    
+    <!-- 상품 정보 -->
+    <div class="product-detail">
+        <!-- 상품 이미지 -->
+        <div class="product-images">
+            <div class="main-image">
+                <img src="{$product.main_image}" alt="{$product.name}" id="mainImage">
+            </div>
+            <div class="thumbnail-images">
+                {foreach from=$product.images item=image}
+                    <img src="{$image}" alt="{$product.name}" onclick="changeMainImage('{$image}')" class="thumbnail">
+                {/foreach}
+            </div>
+        </div>
+        
+        <!-- 상품 정보 -->
+        <div class="product-info">
+            <h1 class="product-name">{$product.name}</h1>
+            
+            <!-- 상품 코드 -->
+            <p class="product-code">상품코드: {$product.code}</p>
+            
+            <!-- 상품 가격 -->
+            <div class="product-price">
+                {if $product.discount_price}
+                    <span class="current-price">{$product.discount_price|number_format}원</span>
+                    <span class="original-price">{$product.price|number_format}원</span>
+                    <span class="discount-rate">{$product.discount_rate}% 할인</span>
+                {else}
+                    <span class="current-price">{$product.price|number_format}원</span>
+                {/if}
+            </div>
+            
+            <!-- 상품 옵션 -->
+            {if $product.options}
+                <div class="product-options">
+                    {foreach from=$product.options item=option}
+                        <div class="option-group">
+                            <label>{$option.name}:</label>
+                            <select name="option_{$option.id}" onchange="updatePrice()">
+                                <option value="">선택하세요</option>
+                                {foreach from=$option.values item=value}
+                                    <option value="{$value.id}" data-price="{$value.price}">{$value.name}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                    {/foreach}
+                </div>
+            {/if}
+            
+            <!-- 수량 선택 -->
+            <div class="quantity-selector">
+                <label>수량:</label>
+                <button class="quantity-btn minus" onclick="changeQuantity(-1)">-</button>
+                <input type="number" value="1" min="1" id="quantity" onchange="updatePrice()">
+                <button class="quantity-btn plus" onclick="changeQuantity(1)">+</button>
+            </div>
+            
+            <!-- 총 가격 -->
+            <div class="total-price">
+                <span>총 상품금액:</span>
+                <span id="totalPrice">{$product.price|number_format}원</span>
+            </div>
+            
+            <!-- 상품 액션 버튼 -->
+            <div class="product-actions">
+                <a href="#none" class="btnAddCart" onclick="{$product.cart_func_add}">장바구니 담기</a>
+                <a href="#none" class="btnBuyNow" onclick="{$product.buy_now_func}">바로 구매</a>
+                <a href="#none" class="btnWishlist" onclick="{$product.wishlist_func}">♥ 위시리스트</a>
+            </div>
+            
+            <!-- 배송 정보 -->
+            <div class="shipping-info">
+                <h3>배송 정보</h3>
+                <p>배송비: {if $product.free_shipping}무료{else}{$product.shipping_cost|number_format}원{/if}</p>
+                <p>배송지역: {$product.shipping_area}</p>
+                <p>배송일정: {$product.shipping_schedule}</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 상품 상세 정보 탭 -->
+    <div class="product-tabs">
+        <div class="tab-buttons">
+            <button class="tab-btn active" onclick="showTab('description')">상품 설명</button>
+            <button class="tab-btn" onclick="showTab('specification')">상품 스펙</button>
+            <button class="tab-btn" onclick="showTab('review')">리뷰 ({$product.review_count})</button>
+            <button class="tab-btn" onclick="showTab('qna')">Q&A ({$product.qna_count})</button>
+        </div>
+        
+        <!-- 상품 설명 -->
+        <div id="description" class="tab-content active">
+            {$product.description}
+        </div>
+        
+        <!-- 상품 스펙 -->
+        <div id="specification" class="tab-content">
+            <table class="spec-table">
+                {foreach from=$product.specifications item=spec}
+                    <tr>
+                        <th>{$spec.name}</th>
+                        <td>{$spec.value}</td>
+                    </tr>
+                {/foreach}
+            </table>
+        </div>
+        
+        <!-- 리뷰 -->
+        <div id="review" class="tab-content">
+            {if $product.reviews}
+                {foreach from=$product.reviews item=review}
+                    <div class="review-item">
+                        <div class="review-header">
+                            <span class="reviewer">{$review.reviewer}</span>
+                            <span class="review-date">{$review.date}</span>
+                            <span class="review-rating">{$review.rating_stars}</span>
+                        </div>
+                        <div class="review-content">
+                            <p>{$review.content}</p>
+                        </div>
+                    </div>
+                {/foreach}
+            {else}
+                <p>아직 리뷰가 없습니다.</p>
+            {/if}
+        </div>
+        
+        <!-- Q&A -->
+        <div id="qna" class="tab-content">
+            {if $product.qnas}
+                {foreach from=$product.qnas item=qna}
+                    <div class="qna-item">
+                        <div class="qna-question">
+                            <h4>Q. {$qna.question}</h4>
+                            <span class="qna-date">{$qna.date}</span>
+                        </div>
+                        {if $qna.answer}
+                            <div class="qna-answer">
+                                <h5>A. {$qna.answer}</h5>
+                                <span class="answer-date">{$qna.answer_date}</span>
+                            </div>
+                        {/if}
+                    </div>
+                {/foreach}
+            {else}
+                <p>아직 Q&A가 없습니다.</p>
+            {/if}
+        </div>
+    </div>
+    
+    <!-- 관련 상품 -->
+    {if $related_products}
+        <section class="related-products">
+            <h2>관련 상품</h2>
+            <div class="product-slider">
+                {foreach from=$related_products item=product}
+                    <div class="product-card">
+                        <img src="{$product.image}" alt="{$product.name}">
+                        <h3>{$product.name}</h3>
+                        <p class="price">{$product.price|number_format}원</p>
+                        <a href="#none" class="btnAddCart" onclick="{$product.cart_func_add}">장바구니 담기</a>
+                    </div>
+                {/foreach}
+            </div>
+        </section>
+    {/if}
+</div>

@@ -1,0 +1,134 @@
+{* 상품 목록 페이지 *}
+<div class="product-list-page">
+    <!-- 브레드크럼 -->
+    <nav class="breadcrumb">
+        <a href="{$mall_url}">홈</a> > 
+        {if $category_name}
+            <a href="{$category_url}">{$category_name}</a> > 
+        {/if}
+        <span>상품 목록</span>
+    </nav>
+    
+    <!-- 페이지 제목 -->
+    <h1 class="page-title">{$category_name|default:"전체 상품"}</h1>
+    
+    <!-- 상품 개수 및 정렬 -->
+    <div class="product-header">
+        <div class="product-count">
+            총 <strong>{$product_count}</strong>개의 상품
+        </div>
+        
+        <div class="product-sort">
+            <select onchange="location.href='{$current_url}?sort='+this.value">
+                <option value="newest" {if $sort == 'newest'}selected{/if}>최신순</option>
+                <option value="price_low" {if $sort == 'price_low'}selected{/if}>가격 낮은순</option>
+                <option value="price_high" {if $sort == 'price_high'}selected{/if}>가격 높은순</option>
+                <option value="popular" {if $sort == 'popular'}selected{/if}>인기순</option>
+                <option value="review" {if $sort == 'review'}selected{/if}>리뷰순</option>
+            </select>
+        </div>
+    </div>
+    
+    <!-- 필터 섹션 -->
+    <div class="filter-section">
+        <div class="filter-controls">
+            <!-- 카테고리 필터 -->
+            <div class="category-filter">
+                <label>카테고리:</label>
+                <select onchange="location.href=this.value">
+                    <option value="{$all_category_url}">전체</option>
+                    {foreach from=$category_list item=cat}
+                        <option value="{$cat.link}" {if $cat.selected}selected{/if}>{$cat.name}</option>
+                    {/foreach}
+                </select>
+            </div>
+            
+            <!-- 가격 필터 -->
+            <div class="price-filter">
+                <label>가격대:</label>
+                <select onchange="location.href='{$current_url}?price='+this.value">
+                    <option value="">전체</option>
+                    <option value="0-100000" {if $price_filter == '0-100000'}selected{/if}>10만원 이하</option>
+                    <option value="100000-200000" {if $price_filter == '100000-200000'}selected{/if}>10만원 - 20만원</option>
+                    <option value="200000-300000" {if $price_filter == '200000-300000'}selected{/if}>20만원 - 30만원</option>
+                    <option value="300000+" {if $price_filter == '300000+'}selected{/if}>30만원 이상</option>
+                </select>
+            </div>
+            
+            <!-- 브랜드 필터 -->
+            {if $brand_list}
+                <div class="brand-filter">
+                    <label>브랜드:</label>
+                    <select onchange="location.href='{$current_url}?brand='+this.value">
+                        <option value="">전체</option>
+                        {foreach from=$brand_list item=brand}
+                            <option value="{$brand.id}" {if $brand.selected}selected{/if}>{$brand.name}</option>
+                        {/foreach}
+                    </select>
+                </div>
+            {/if}
+        </div>
+    </div>
+    
+    <!-- 상품 그리드 -->
+    <div class="product-grid">
+        {if $product_list}
+            {foreach from=$product_list item=product}
+                <div class="product-item" data-product-id="{$product.id}">
+                    <div class="product-image">
+                        <a href="{$product.link}">
+                            <img src="{$product.image}" alt="{$product.name}" loading="lazy">
+                        </a>
+                        
+                        <!-- 상품 액션 버튼 -->
+                        <div class="product-actions">
+                            <a href="#none" class="btnQuickView" onclick="{$product.quick_view_func}">빠른보기</a>
+                            <a href="#none" class="btnWishlist" onclick="{$product.wishlist_func}">♥</a>
+                        </div>
+                        
+                        <!-- 할인 배지 -->
+                        {if $product.discount_rate > 0}
+                            <div class="discount-badge">{$product.discount_rate}%</div>
+                        {/if}
+                    </div>
+                    
+                    <div class="product-info">
+                        <h3 class="product-name">
+                            <a href="{$product.link}">{$product.name}</a>
+                        </h3>
+                        
+                        <div class="product-price">
+                            {if $product.discount_price}
+                                <span class="current-price">{$product.discount_price|number_format}원</span>
+                                <span class="original-price">{$product.price|number_format}원</span>
+                            {else}
+                                <span class="current-price">{$product.price|number_format}원</span>
+                            {/if}
+                        </div>
+                        
+                        <div class="product-rating">
+                            <span class="stars">{$product.rating_stars}</span>
+                            <span class="review-count">({$product.review_count})</span>
+                        </div>
+                        
+                        <!-- 장바구니 버튼 -->
+                        <a href="#none" class="btnAddCart" onclick="{$product.cart_func_add}">장바구니 담기</a>
+                    </div>
+                </div>
+            {/foreach}
+        {else}
+            <div class="no-product">
+                <div class="no-product-icon">🔍</div>
+                <h3>검색 결과가 없습니다</h3>
+                <p>다른 검색어로 다시 시도해보세요.</p>
+            </div>
+        {/if}
+    </div>
+    
+    <!-- 페이징 -->
+    {if $paging}
+        <div class="pagination">
+            {$paging}
+        </div>
+    {/if}
+</div>

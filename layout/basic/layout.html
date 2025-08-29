@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{$page_title} - {$mall_name}</title>
+    <meta name="description" content="{$page_description}">
+    <meta name="keywords" content="{$page_keywords}">
+    
+    <!-- cafe24 기본 CSS -->
+    <link rel="stylesheet" href="{$webpath}/web/upload/template1/css/common.css">
+    <link rel="stylesheet" href="{$webpath}/web/upload/template1/css/layout.css">
+    
+    <!-- 추가 CSS -->
+    {if $page_name == 'product_list'}
+        <link rel="stylesheet" href="{$webpath}/web/upload/template1/css/product.css">
+    {/if}
+    {if $page_name == 'cart'}
+        <link rel="stylesheet" href="{$webpath}/web/upload/template1/css/cart.css">
+    {/if}
+    {if $page_name == 'product_detail'}
+        <link rel="stylesheet" href="{$webpath}/web/upload/template1/css/product-detail.css">
+    {/if}
+    
+    <!-- 폰트 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap">
+</head>
+<body>
+    <!-- 헤더 -->
+    {include file="layout/basic/header.html"}
+    
+    <!-- 메인 컨텐츠 -->
+    <main id="mainContent">
+        {include file=$include_file}
+    </main>
+    
+    <!-- 푸터 -->
+    {include file="layout/basic/footer.html"}
+    
+    <!-- cafe24 기본 JS -->
+    <script src="{$webpath}/web/upload/template1/js/common.js"></script>
+    <script src="{$webpath}/web/upload/template1/js/layout.js"></script>
+    
+    <!-- 추가 JS -->
+    {if $page_name == 'product_list'}
+        <script src="{$webpath}/web/upload/template1/js/product.js"></script>
+    {/if}
+    {if $page_name == 'cart'}
+        <script src="{$webpath}/web/upload/template1/js/cart.js"></script>
+    {/if}
+</body>
+</html>

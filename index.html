@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>babybrezza</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <a href="/index.php"><img src="h1-logo.png" alt="babybrezza 로고"></a>
+        <nav id="gnb">
+            <ul class="depth1">
+                <li>
+                    <a href="#" class="">BRAND</a>
+                </li>
+                <li>
+                    <a href="#" class="">PRODUCT</a>
+                    <ul class="depth2">
+                        <li><a href="/sub01/sub01_01.php">· <span>분유제조기</span></a></li>
+                        <li><a href="/sub07/sub07_01.php">· <span>젖병세척기</span></a></li>
+                        <li><a href="/sub04/sub04_01.php">· <span>젖병소독기</span></a></li>
+                        <li><a href="/sub02/sub02_01.php">· <span>이유식 마스터기</span></a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="">SHOP</a>
+                    <ul class="depth2">
+                        <li><a href="#">· <span>전체제품</span></a></li>
+                        <li><a href="/sub01/sub01_01.php">· <span>분유제조기</span></a></li>
+                        <li><a href="/sub07/sub07_01.php">· <span>젖병세척기</span></a></li>
+                        <li><a href="/sub04/sub04_01.php">· <span>젖병소독기</span></a></li>
+                        <li><a href="/sub02/sub02_01.php">· <span>이유식 마스터기</span></a></li>
+                        <li><a href="#">· <span>안심맘케어</span></a></li>
+                        <li><a href="#">· <span>ACC</span></a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="">EVENT</a>
+                </li>
+                <li>
+                    <a href="#" class="">ForBrezza Family</a>
+                    <ul class="depth2">
+                        <li><a href="/sub03/sub03_01.php">· <span>정품등록</span></a></li>
+                        <li><a href="/sub03/sub03_03.php">· <span>비회원정품등록</span></a></li>
+                        <li><a href="/sub03/sub03_10.php">· <span>STORY</span></a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="">CUSTOMER</a>
+                    <ul class="depth2">
+                        <li><a href="/sub03/sub03_06.php">· <span>온라인 고객지원</span></a></li>
+                        <li><a href="#">· <span>자가점검</span></a></li>
+                        <li><a href="/sub03/sub03_13.php">· <span>오프라인 매장찾기</span></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div class="lnb">
+            <a href="/sub06/sub06_01.php" class="login">Log in</a>
+            <a href="/sub06/sub06_02.php" class="join">Join</a>
+            <a href="#none" class="menu hidden-pc" onclick="openNav()">빠른메뉴</a>
+            <a href="#none" class="openMenu hidden-pc">빠른메뉴</a>
+        </div>
+    </header>
+{* 메인 페이지 *}
+<div class="main-page">
+    <!-- 메인 배너 -->
+    <section class="main-banner">
+        <div class="banner-slider">
+            {foreach from=$main_banners item=banner}
+                <div class="banner-item">
+                    <img src="{$banner.image}" alt="{$banner.title}">
+                    <div class="banner-content">
+                        <h2>{$banner.title}</h2>
+                        <p>{$banner.description}</p>
+                        <a href="{$banner.link}" class="btnBanner">자세히 보기</a>
+                    </div>
+                </div>
+            {/foreach}
+        </div>
+    </section>
+    
+    <!-- 카테고리 섹션 -->
+    <section class="category-section">
+        <div class="container">
+            <h2 class="section-title">카테고리</h2>
+            <div class="category-grid">
+                {foreach from=$main_categories item=category}
+                    <a href="{$category.link}" class="category-card">
+                        <div class="category-icon">{$category.icon}</div>
+                        <h3>{$category.name}</h3>
+                        <p>{$category.description}</p>
+                    </a>
+                {/foreach}
+            </div>
+        </div>
+    </section>
+    
+    <!-- 인기 상품 -->
+    <section class="popular-products">
+        <div class="container">
+            <h2 class="section-title">인기 상품</h2>
+            <div class="product-slider">
+                {foreach from=$popular_products item=product}
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="{$product.image}" alt="{$product.name}">
+                            <div class="product-actions">
+                                <a href="#none" class="btnQuickView" onclick="{$product.quick_view_func}">빠른보기</a>
+                                <a href="#none" class="btnWishlist" onclick="{$product.wishlist_func}">♥</a>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>{$product.name}</h3>
+                            <div class="product-price">
+                                {if $product.discount_price}
+                                    <span class="current-price">{$product.discount_price|number_format}원</span>
+                                    <span class="original-price">{$product.price|number_format}원</span>
+                                {else}
+                                    <span class="current-price">{$product.price|number_format}원</span>
+                                {/if}
+                            </div>
+                            <a href="#none" class="btnAddCart" onclick="{$product.cart_func_add}">장바구니 담기</a>
+                        </div>
+                    </div>
+                {/foreach}
+            </div>
+        </div>
+    </section>
+    
+    <!-- 이벤트 섹션 -->
+    {if $events}
+        <section class="events-section">
+            <div class="container">
+                <h2 class="section-title">진행중인 이벤트</h2>
+                <div class="event-grid">
+                    {foreach from=$events item=event}
+                        <div class="event-card">
+                            <img src="{$event.image}" alt="{$event.title}">
+                            <div class="event-content">
+                                <h3>{$event.title}</h3>
+                                <p>{$event.description}</p>
+                                <span class="event-period">{$event.start_date} ~ {$event.end_date}</span>
+                                <a href="{$event.link}" class="btnEvent">자세히 보기</a>
+                            </div>
+                        </div>
+                    {/foreach}
+                </div>
+            </div>
+        </section>
+    {/if}
+    
+    <!-- 브랜드 스토리 -->
+    <section class="brand-story">
+        <div class="container">
+            <div class="brand-content">
+                <h2>브랜드 스토리</h2>
+                <p>{$brand_story}</p>
+                <a href="{$about_url}" class="btnAbout">회사 소개</a>
+            </div>
+            <div class="brand-image">
+                <img src="{$brand_image}" alt="브랜드 이미지">
+            </div>
+        </div>
+    </section>
+    
+    <!-- 뉴스레터 구독 -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>뉴스레터 구독</h2>
+            <p>새로운 상품과 이벤트 소식을 가장 먼저 받아보세요!</p>
+            <form name="newsletter" method="post" action="{$newsletter_url}">
+                <input type="email" name="email" placeholder="이메일 주소를 입력하세요" required>
+                <button type="submit">구독하기</button>
+            </form>
+        </div>
+    </section>
+</div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="https://www.babybrezza.kr/img/logo_footer.png" alt="babybrezza 로고">
+            </div>
+            <nav class="footer-links">
+                <ul>
+                    <li><a href="#">이용약관</a></li>
+                    <li><a href="#">개인정보 처리방침</a></li>
+                    <li><a href="#">마케팅 활용 동의 및 광고 수신약관</a></li>
+                    <li><a href="#">이벤트 및 할인 소식 알림동의</a></li>
+                </ul>
+            </nav>
+            <div class="company-info">
+                <p>대표 : 강석준 ｜ 사업자등록번호 : 776-87-00563 ｜ 개인정보관리책임 : info@babybrezza.co.kr</p>
+                <p>통신판매업신고번호 : 2017-서울강남-02410 ｜ 이메일 : info@babybrezza.co.kr</p>
+                <p>주소 : 서울특별시 강남구 학동로 401, 금하빌딩 4층 (우)06060</p>
+                <p>고객센터 : 1811-8077</p>
+                <p>운영시간 : 평일 10:00 - 17:00 (점심시간 12:00 - 13:00) / 주말 및 공휴일 휴무</p>
+                <p>Copyright © (주)아이브이지. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
